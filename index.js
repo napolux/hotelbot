@@ -157,7 +157,7 @@ const findOrCreateSession = (fbid) => {
     // Controlliamo se abbiamo una sessione utente
     Object.keys(sessions).forEach(k => {
         if (sessions[k].fbid === fbid) {
-        // Yep, got it!
+        // Eccolo
         sessionId = k;
     }
 });
