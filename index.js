@@ -5,23 +5,28 @@ var request = require('request');
 var app = express();
 var mongodb = require('mongodb');
 
+// Wit
+var Wit = require('node-wit').Wit;
+var log = require('node-wit').log;
+var WIT_ACCESS_TOKEN = process.env.WIT_ACCESS_TOKEN;
+
 // Connettiamoci a MongoDB.
 var MongoClient = mongodb.MongoClient;
 
 // URL precedentemente salvato dal plugin mlab.
 var url = process.env.MONGODB_URI;
 
+
 // Connessione al server
 MongoClient.connect(url, function (err, db) {
   if (err) {
     console.log('Impossibile connettersi. Errore:', err);
   } else {
-    //HURRAY!! We are connected. :)
+    // Siamo connessi! :)
     console.log('Connessione stabilita con: ', url);
+    
+    // Qui eseguiremo il nostro codice...
 
-    // do some work here with the database.
-
-    //Close connection
     db.close();
   }
 });
