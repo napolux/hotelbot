@@ -3,6 +3,28 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
+var mongodb = require('mongodb');
+
+// Connettiamoci a MongoDB.
+var MongoClient = mongodb.MongoClient;
+
+// URL precedentemente salvato dal plugin mlab.
+var url = process.env.MONGODB_URI;
+
+// Connessione al server
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Impossibile connettersi. Errore:', err);
+  } else {
+    //HURRAY!! We are connected. :)
+    console.log('Connessione stabilita con: ', url);
+
+    // do some work here with the database.
+
+    //Close connection
+    db.close();
+  }
+});
 
 // La cartella per i file statici
 app.use(express.static('public'));
@@ -10,7 +32,6 @@ app.use(express.static('public'));
 // Impostiamo bodyparser che ci permetterà di interpretare messaggi e confezionare payload
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 
 // L'applicazione sarà in ascolto sulla porta 3000 o su una porta predefinita dal server
 app.listen((process.env.PORT || 3000));

@@ -23,6 +23,8 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "mongodb": "^2.2.11",
+    "node-wit": "^4.1.0",
     "request": "^2.75.0"
   }
 }
