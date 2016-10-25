@@ -16,7 +16,6 @@ var MongoClient = mongodb.MongoClient;
 // URL precedentemente salvato dal plugin mlab.
 var url = process.env.MONGODB_URI;
 
-
 // Connessione al server
 MongoClient.connect(url, function (err, db) {
   if (err) {
@@ -118,5 +117,100 @@ function evaluateCommand(recipientId, text) {
     command = text.toLowerCase();
     console.log("Comando ricevuto: " + command);
 }
+
+// Codice per wit.ai
+function sendMessageToWit(recipientId, event) {
+
+  const sessionId = findOrCreateSession(recipientId);
+  const {
+      text,
+      attachments
+  } = event.message;
+
+  // Inviamo i messaggi a Wit.ai 
+  // Eseguiamo le azioni fino a quando non abbiamo più niente da eseguire
+  wit.runActions(
+      sessionId, // sessione utente
+      text, // messaggio
+      sessions[sessionId].context // context sessione utente
+  ).then((context) => {
+        console.log('Azioni...');
+        // Ok, abbiamo fatto tutto.
+        // Aspettiamo nuovi messaggi.
+        console.log('Aspettiamo nuovi messaggi...');
+
+        // Updating the user's current session state
+        sessions[sessionId].context = context;
+      })
+      .catch((err) => {
+        var reply = "Mi spiace, non riesco a capirti... :-(";
+        sendTextMessage(recipientId, reply);
+        console.error('Oops! C\'è stato un problema! ', err.stack || err);
+      })
+
+}
+
+const sessions = {};
+
+const findOrCreateSession = (fbid) => {
+    let sessionId;
+    // Controlliamo se abbiamo una sessione utente
+    Object.keys(sessions).forEach(k => {
+        if (sessions[k].fbid === fbid) {
+        // Yep, got it!
+        sessionId = k;
+    }
+});
+if (!sessionId) {
+    // Sessione non trovata, ne creiamo una nuova
+    sessionId = new Date().toISOString();
+    sessions[sessionId] = {
+        fbid: fbid,
+        context: {}
+    };
+}
+return sessionId;
+};
+
+// Le azioni del nostro bot
+const actions = {
+    send({
+        sessionId
+    }, {
+        text
+    }) {
+    // Il nostro bot ha qualcosa da dire!
+    // Recuperiamo l'id utente dalla sessione
+    const recipientId = sessions[sessionId].fbid;
+    if (recipientId) {
+        // Utente trovato, inviamo il messaggio all'utente dopo l'esecuzione delle azioni
+        return new Promise(function(resolve, reject) {
+            sendTextMessage(recipientId, text);
+            return resolve();
+        });
+    } else {
+        console.error('Oops! Non ho trovato:', sessionId);
+        // Giving the wheel back to our bot
+        return Promise.resolve()
+    }
+},
+// Salutiamo, perché il bot è educato
+getHello({
+    context,
+    entities
+}) {
+    return new Promise(function(resolve, reject) {
+        context.greetings = "Ciao, come posso aiutarti?";
+        return resolve(context);
+    });
+}
+};
+
+// Setup del bot
+const wit = new Wit({
+    accessToken: WIT_ACCESS_TOKEN,
+    actions,
+    logger: new log.Logger(log.INFO)
+});
 
 
