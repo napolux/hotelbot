@@ -201,7 +201,15 @@ getHello({
     entities
 }) {
     return new Promise(function(resolve, reject) {
-        context.greetings = "Ciao, come posso aiutarti?";
+
+        var saluto = firstEntityValue(entities, 'saluti');
+
+        if(saluto) {
+            context.greetings = "Ciao, come posso aiutarti?";
+        } else {
+            delete context.greetings
+        }
+
         return resolve(context);
     });
 }
@@ -214,4 +222,17 @@ const wit = new Wit({
     logger: new log.Logger(log.INFO)
 });
 
+
+// Controllo entità
+const firstEntityValue = (entities, entity) => {
+  const val = entities && entities[entity] &&
+    Array.isArray(entities[entity]) &&
+    entities[entity].length > 0 &&
+    entities[entity][0].value
+  ;
+  if (!val) {
+    return null;
+  }
+  return typeof val === 'object' ? val.value : val;
+};
 
