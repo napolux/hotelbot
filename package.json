@@ -1,5 +1,5 @@
 {
-  "name": "cinemabot",
+  "name": "hotelbot",
   "engines": {
     "node": ">=6.0.0"
   },
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/napolux/cinemabot.git"
+    "url": "git+https://github.com/napolux/hotelbot.git"
   },
   "author": "Francesco Napoletano",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/napolux/cinemabot/issues"
+    "url": "https://github.com/napolux/hotelbot/issues"
   },
-  "homepage": "https://github.com/napolux/cinemabot#readme",
+  "homepage": "https://github.com/napolux/hotelbot#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
