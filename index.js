@@ -208,6 +208,7 @@ getHello({
             context.greetings = "Ciao, come posso aiutarti?";
         } else {
             delete context.greetings
+            return reject(context);
         }
 
         return resolve(context);
