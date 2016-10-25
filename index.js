@@ -210,6 +210,7 @@ getHello({
             delete context.greetings;
         }
 
+        console.log("CONTEXT " + context);
         return resolve(context);
     });
 }
