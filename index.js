@@ -237,8 +237,8 @@ var msg = {
             "payment_method": "Visa 2345",
             "timestamp": "1428444852",
             "elements": [{
-                "title": filmPrenotato,
-                "subtitle": "Hai prenotato presso l'albergo di IoProgrammo per " + contex.nights + " notti!",
+                "title": "Prenotazione Hotel ioProgrammo",
+                "subtitle": "Hai prenotato presso l'hotel di ioProgrammo per " + contex.nights + " notti!",
                 "quantity": context.rooms + " stanze",
                 "price": 600,
                 "currency": "EUR",
