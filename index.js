@@ -214,6 +214,18 @@ getHello({
         return resolve(context);
     });
 },
+clearContext({
+    context,
+    entities
+}) {
+    return new Promise(function(resolve, reject) {
+
+            delete context.greetings;
+        
+        console.log("CONTEXT " + JSON.stringify(context));
+        return resolve(context);
+    });
+},
 bookRoom({
     context,
     entities
