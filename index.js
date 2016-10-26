@@ -159,7 +159,9 @@ if (!sessionId) {
         fbid: fbid,
         context: {}
     };
+
 }
+    userId = fbid;
 return sessionId;
 };
 
