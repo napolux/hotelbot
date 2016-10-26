@@ -214,7 +214,7 @@ getHello({
         return resolve(context);
     });
 },
-bookRooms({
+bookRoom({
     context,
     entities
 }) {
