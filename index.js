@@ -221,7 +221,7 @@ sendReceipt({
         // Inviamo una ricevuta
         console.log("Invio ricevuta");
 
-        console.log("sessions: " +  sessions);
+        console.log("sessions: " +  JSON.stringify(sessions));
 
         console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
