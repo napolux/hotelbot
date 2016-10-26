@@ -16,20 +16,6 @@ var MongoClient = mongodb.MongoClient;
 // URL precedentemente salvato dal plugin mlab.
 var url = process.env.MONGODB_URI;
 
-// Connessione al server
-MongoClient.connect(url, function (err, db) {
-  if (err) {
-    console.log('Impossibile connettersi. Errore:', err);
-  } else {
-    // Siamo connessi! :)
-    console.log('Connessione stabilita con: ', url);
-    
-    // Qui eseguiremo il nostro codice...
-
-    db.close();
-  }
-});
-
 // La cartella per i file statici
 app.use(express.static('public'));
 
@@ -266,6 +252,35 @@ saveBooking({
         context.nights = numberOfNights;
 
         console.log("CONTEXT " + JSON.stringify(context));
+
+        // Connessione al server
+        MongoClient.connect(url, function (err, db) {
+          if (err) {
+            console.log('Impossibile connettersi. Errore:', err);
+          } else {
+            // Siamo connessi! :)
+            console.log('Connessione stabilita con: ', url);
+            
+            // Recuperiamo le prenotazioni
+            var collection = db.collection('prenotazioni');
+
+            // Creiamo la prenotazione
+            var prenotazione = {nome: 'Mario Rossi', notti: context.nights, stanze: context.rooms};
+            
+            // Insert some users
+            collection.insert([prenotazione], function (err, result) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log("Inserimento avvenuto con successo");
+              }
+              //Close connection
+              db.close();
+            });
+
+          }
+        });
+
         return resolve(context);
     });
 },
