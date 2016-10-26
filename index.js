@@ -238,7 +238,7 @@ var msg = {
             "timestamp": "1428444852",
             "elements": [{
                 "title": "Prenotazione Hotel ioProgrammo",
-                "subtitle": "Hai prenotato presso l'hotel di ioProgrammo per " + contex.nights + " notti!",
+                "subtitle": "Hai prenotato presso l'hotel di ioProgrammo per " + context.nights + " notti!",
                 "quantity": context.rooms + " stanze",
                 "price": 600,
                 "currency": "EUR",
