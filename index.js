@@ -213,7 +213,25 @@ getHello({
         console.log("CONTEXT " + context);
         return resolve(context);
     });
-}
+},
+bookRooms({
+    context,
+    entities
+}) {
+    return new Promise(function(resolve, reject) {
+
+        var numberOfRooms = firstEntityValue(entities, 'wit/number');
+
+        if(numberOfRooms) {
+            context.rooms = numberOfRooms;
+        } else {
+            context.rooms = 0;
+        }
+
+        console.log("CONTEXT " + context);
+        return resolve(context);
+    });
+},
 };
 
 // Setup del bot
