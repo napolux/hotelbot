@@ -204,7 +204,7 @@ getHello({
 
         var saluto = firstEntityValue(entities, 'saluti');
 
-        if(saluto) {
+        if(saluto && !context.rooms) {
             context.greetings = "Ciao, come posso aiutarti?";
         } else {
             delete context.greetings;
@@ -229,6 +229,18 @@ bookRoom({
         }
 
         console.log("CONTEXT " + context);
+        return resolve(context);
+    });
+},
+saveBooking({
+    context,
+    entities
+}) {
+    return new Promise(function(resolve, reject) {
+        var numberOfNights = firstEntityValue(entities, 'number');
+
+        context.nights = numberOfNights;
+
         return resolve(context);
     });
 },
