@@ -210,7 +210,7 @@ getHello({
             delete context.greetings;
         }
 
-        console.log("CONTEXT " + context);
+        console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
     });
 },
@@ -228,7 +228,7 @@ bookRoom({
             context.rooms = 0;
         }
 
-        console.log("CONTEXT " + context);
+        console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
     });
 },
@@ -241,6 +241,7 @@ saveBooking({
 
         context.nights = numberOfNights;
 
+        console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
     });
 },
