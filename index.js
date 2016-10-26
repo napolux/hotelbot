@@ -220,6 +220,9 @@ sendReceipt({
 
         // Inviamo una ricevuta
         console.log("Invio ricevuta");
+
+        console.log("sessions: " +  sessions);
+
         console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
     });
@@ -253,6 +256,8 @@ saveBooking({
 
         console.log("CONTEXT " + JSON.stringify(context));
 
+        if(context.nights && context.rooms) {
+
         // Connessione al server
         MongoClient.connect(url, function (err, db) {
           if (err) {
@@ -280,6 +285,10 @@ saveBooking({
 
           }
         });
+            
+        }
+
+        
 
         return resolve(context);
     });
