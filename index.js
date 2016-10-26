@@ -162,7 +162,7 @@ if (!sessionId) {
 
 }
     userId = fbid;
-return sessionId;
+    return sessionId;
 };
 
 // Le azioni del nostro bot
@@ -226,7 +226,6 @@ sendReceipt({
 
         // Inviamo una ricevuta
         console.log("Invio ricevuta ", userId );
-
 
         var msg = {
             "attachment": {
