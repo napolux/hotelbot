@@ -10,6 +10,8 @@ var Wit = require('node-wit').Wit;
 var log = require('node-wit').log;
 var WIT_ACCESS_TOKEN = process.env.WIT_ACCESS_TOKEN;
 
+var userId = null;
+
 // Connettiamoci a MongoDB.
 var MongoClient = mongodb.MongoClient;
 
@@ -109,6 +111,8 @@ function evaluateCommand(recipientId, text) {
 function sendMessageToWit(recipientId, event) {
 
   const sessionId = findOrCreateSession(recipientId);
+  userId = recipientId;
+
   const {
       text,
       attachments
@@ -221,7 +225,44 @@ sendReceipt({
         // Inviamo una ricevuta
         console.log("Invio ricevuta");
 
-        console.log("sessions: " +  JSON.stringify(sessions));
+
+var msg = {
+    "attachment": {
+        "type": "template",
+        "payload": {
+            "template_type": "receipt",
+            "recipient_name": "Mario Rossi",
+            "order_number": "12345678902",
+            "currency": "EUR",
+            "payment_method": "Visa 2345",
+            "timestamp": "1428444852",
+            "elements": [{
+                "title": filmPrenotato,
+                "subtitle": "Hai prenotato presso l'albergo di IoProgrammo per " + contex.nights + " notti!",
+                "quantity": context.rooms + " stanze",
+                "price": 600,
+                "currency": "EUR",
+            }],
+            "address": {
+                "street_1": "Via Roma 123",
+                "street_2": "",
+                "city": "Firenze",
+                "postal_code": "12345",
+                "state": "FI",
+                "country": "IT"
+            },
+            "summary": {
+                "subtotal": 600,
+                "shipping_cost": 0,
+                "total_tax": 0,
+                "total_cost": 600
+            }
+        }
+    }
+};
+    sendMessage(userId, msg);
+
+
 
         console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
