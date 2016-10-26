@@ -223,43 +223,43 @@ sendReceipt({
     return new Promise(function(resolve, reject) {
 
         // Inviamo una ricevuta
-        console.log("Invio ricevuta");
+        console.log("Invio ricevuta ", userId );
 
 
-var msg = {
-    "attachment": {
-        "type": "template",
-        "payload": {
-            "template_type": "receipt",
-            "recipient_name": "Mario Rossi",
-            "order_number": "12345678902",
-            "currency": "EUR",
-            "payment_method": "Visa 2345",
-            "timestamp": "1428444852",
-            "elements": [{
-                "title": "Prenotazione Hotel ioProgrammo",
-                "subtitle": "Hai prenotato presso l'hotel di ioProgrammo per " + context.nights + " notti!",
-                "quantity": context.rooms + " stanze",
-                "price": 600,
-                "currency": "EUR",
-            }],
-            "address": {
-                "street_1": "Via Roma 123",
-                "street_2": "",
-                "city": "Firenze",
-                "postal_code": "12345",
-                "state": "FI",
-                "country": "IT"
-            },
-            "summary": {
-                "subtotal": 600,
-                "shipping_cost": 0,
-                "total_tax": 0,
-                "total_cost": 600
+        var msg = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "receipt",
+                    "recipient_name": "Mario Rossi",
+                    "order_number": "12345678902",
+                    "currency": "EUR",
+                    "payment_method": "Visa 2345",
+                    "timestamp": "1428444852",
+                    "elements": [{
+                        "title": "Prenotazione Hotel ioProgrammo",
+                        "subtitle": "Hai prenotato presso l'hotel di ioProgrammo per " + context.nights + " notti!",
+                        "quantity": context.rooms + " stanze",
+                        "price": 600,
+                        "currency": "EUR",
+                    }],
+                    "address": {
+                        "street_1": "Via Roma 123",
+                        "street_2": "",
+                        "city": "Firenze",
+                        "postal_code": "12345",
+                        "state": "FI",
+                        "country": "IT"
+                    },
+                    "summary": {
+                        "subtotal": 600,
+                        "shipping_cost": 0,
+                        "total_tax": 0,
+                        "total_cost": 600
+                    }
+                }
             }
-        }
-    }
-};
+        };
     sendMessage(userId, msg);
 
 
