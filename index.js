@@ -220,8 +220,20 @@ clearContext({
 }) {
     return new Promise(function(resolve, reject) {
 
-            delete context.greetings;
+        delete context.greetings;
         
+        console.log("CONTEXT " + JSON.stringify(context));
+        return resolve(context);
+    });
+},
+sendReceipt({
+    context,
+    entities
+}) {
+    return new Promise(function(resolve, reject) {
+
+        // Inviamo una ricevuta
+        console.log("Invio ricevuta");
         console.log("CONTEXT " + JSON.stringify(context));
         return resolve(context);
     });
