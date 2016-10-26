@@ -220,7 +220,7 @@ bookRoom({
 }) {
     return new Promise(function(resolve, reject) {
 
-        var numberOfRooms = firstEntityValue(entities, 'wit/number');
+        var numberOfRooms = firstEntityValue(entities, 'number');
 
         if(numberOfRooms) {
             context.rooms = numberOfRooms;
